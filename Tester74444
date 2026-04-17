@@ -1,0 +1,63 @@
+import speech_recognition as sr
+import pyttsx3
+import webbrowser
+
+# 1. ตั้งค่าระบบเสียงพูด (Text-to-Speech)
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+# เลือกเสียง (0 คือเสียงผู้ชาย, 1 คือเสียงผู้หญิง)
+engine.setProperty('voice', voices[0].id) 
+engine.setProperty('rate', 150) # ความเร็วในการพูด
+
+def speak(text):
+    """ฟังก์ชันสำหรับให้บอทพูด"""
+    print(f"Jarvis: {text}")
+    engine.say(text)
+    engine.runAndWait()
+
+def listen():
+    """ฟังก์ชันสำหรับรับเสียงจากไมโครโฟนและแปลงเป็นข้อความ"""
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        # ปรับจูนเสียงรบกวนรอบข้าง
+        r.adjust_for_ambient_noise(source, duration=0.5)
+        audio = r.listen(source)
+
+        try:
+            # ใช้ Google Web Speech API ในการแปลเสียงเป็นข้อความ
+            command = r.recognize_google(audio, language='en-US')
+            print(f"You said: {command}")
+            return command.lower()
+        except sr.UnknownValueError:
+            # กรณีที่ฟังไม่ออก
+            return ""
+        except sr.RequestError:
+            print("ไม่สามารถเชื่อมต่อกับ Google API ได้")
+            return ""
+
+# ================== เริ่มการทำงาน (Main Program) ==================
+
+if __name__ == "__main__":
+    # ทักทายตอนเริ่มรันโค้ด
+    speak("Welcome back sir. Systems are online and ready.")
+    
+    while True:
+        # รับคำสั่งเสียง
+        command = listen()
+
+        # ตรวจสอบคำสั่งต่างๆ
+        if "jarvis" in command:
+            speak("Yes sir, I'm listening.")
+
+        elif "open facebook" in command:
+            speak("Opening facebook")
+            webbrowser.open("https://www.facebook.com")
+
+        elif "open google" in command:
+            speak("Opening google")
+            webbrowser.open("https://www.google.com")
+
+        elif "stop" in command or "exit" in command or "quit" in command:
+            speak("Shutting down sir. Goodbye.")
+            break
