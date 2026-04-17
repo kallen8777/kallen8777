@@ -1,1 +1,4 @@
-# Computer Science, University UnUniversity
+# UPDATE Readme.md
+
+Computer Science, Ramkhamhaeng University
+
