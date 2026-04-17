@@ -1,8 +1,1 @@
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
----------------------------->   Create a Github account to store projects and other data, including archived scripts. <----------------------------
----------------------------->   We do not store only work files, including other ones, which may be useless or unreliable, sorry. <----------------------------
----------------------------->   as said for example Game save file Machine data settingsApplication logs, etc. <----------------------------
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+# Computer Science, University UnUniversity
